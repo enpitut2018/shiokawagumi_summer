@@ -9,7 +9,7 @@ class TopController < ApplicationController
 		end
 
 		# 変数
-		limit   = 10       # 取得するツイートの上限数
+		limit   = 100       # 取得するツイートの上限数
 		keyword = "夏"   # ハッシュタグによる検索を行う際のキーワード
 
 		# キーワードを含むハッシュタグの検索
