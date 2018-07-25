@@ -10,7 +10,7 @@ class TopController < ApplicationController
 
 		# 変数
 		limit   = 300       # 取得するツイートの上限数
-		# ハッシュタグによる検索を行う際のキーワード
+		# ハッシュタグによる検索を行う際のキーワードはこれ
 		keyword = "海 OR かき氷 OR ひまわり OR 花火 filter:images" 
 		# キーワードを含むハッシュタグの検索
 		begin
