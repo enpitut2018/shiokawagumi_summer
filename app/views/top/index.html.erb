@@ -3,3 +3,10 @@
 <img src="http://blog-imgs-92.fc2.com/b/l/o/blogman55/livejupiter_1464425616_201s.jpg" />
 <img src="https://userdisk.webry.biglobe.ne.jp/002/402/18/N000/000/001/20080921.jpg" />
 
+<% @tweets.map do |tweet| %>
+	<% if tweet.media? then %>
+		<% tweet.media.each do |value| %>
+			<img src="<%= value.media_uri %>"/>
+		<% end %>
+	<% end %>
+<% end %>
