@@ -18,3 +18,10 @@
 
 
 
+<% @tweets.map do |tweet| %>
+	<% if tweet.media? then %>
+		<% tweet.media.each do |value| %>
+			<img src="<%= value.media_uri %>"/>
+		<% end %>
+	<% end %>
+<% end %>
