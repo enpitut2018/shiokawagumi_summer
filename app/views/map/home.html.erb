@@ -4,113 +4,114 @@
 
 <h1>Map</h1>
 
-  <style type="text/css">
-    #map { height: 700px;
-   margin-left:auto;    /* 左側マージンを自動的に空ける */
-   margin-right:auto;   /* 右側マージンを自動的に空ける */
-   text-align:left;     /* 中身を左側表示に戻す */
-   width: 80%;}
-  </style>
+<style type="text/css">
+#map { height: 700px;
+	margin-left:auto;    /* 左側マージンを自動的に空ける */
+	margin-right:auto;   /* 右側マージンを自動的に空ける */
+	text-align:left;     /* 中身を左側表示に戻す */
+	width: 80%;}
+</style>
 
-  <div id="map"></div>
+<div id="map"></div>
 
-
-
- 
 
 <script type="text/javascript">
 
+	function initMap() {
 
-function initMap() {
+		var lat_now = 0;
+		var lng_now = 0;
 
-var lat_now = 0;
-var lng_now = 0;
+		// 対応している場合
+		if( navigator.geolocation )
+		{
+			// 現在地を取得
+			navigator.geolocation.getCurrentPosition(
 
+				// [第1引数] 取得に成功した場合の関数
+				function( position )
+				{
+					// 取得したデータの整理
+					var data = position.coords ;
 
-// 対応している場合
-	if( navigator.geolocation )
-	{
-		// 現在地を取得
-		navigator.geolocation.getCurrentPosition(
+					// データの整理
+					lat_now = data.latitude ;
+					lng_now = data.longitude ;
 
-			// [第1引数] 取得に成功した場合の関数
-			function( position )
-			{
-				// 取得したデータの整理
-				var data = position.coords ;
+					//map表示処理
+					var now = {lat: lat_now , lng: lng_now};
+					// var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
+					var map = new google.maps.Map(document.getElementById('map'), {
+						zoom: 15,
+						center: now
+					});
+					var transitLayer = new google.maps.TransitLayer();
+					transitLayer.setMap(map);
 
-				// データの整理
-				 lat_now = data.latitude ;
-				 lng_now = data.longitude ;
+					var infowindow = new google.maps.InfoWindow();
 
+					var marker = new google.maps.Marker({
+						position:now,
+						map: map,
+					});
 
-				//map表示処理
-				  var now = {lat: lat_now , lng: lng_now};
-				  // var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
-				  var map = new google.maps.Map(document.getElementById('map'), {
-				    zoom: 15,
-				    center: now
-				  });
-				  var transitLayer = new google.maps.TransitLayer();
-				  transitLayer.setMap(map);
+					// 吹き出しを閉じる処理
+					google.maps.event.addListener(map, "click", function() {infowindow.close();});
 
-				  var contentString = '住所：<%= @address %>';
-				  var infowindow = new google.maps.InfoWindow({
-				    content: contentString
-				  });
+					// 任意の位置にマーカーを追加
+					var point = new google.maps.LatLng(35.673264, 139.760668);
+					var marker = create_maker(point, "info", "<img src='http://blog-imgs-92.fc2.com/b/l/o/blogman55/livejupiter_1464425616_201s.jpg' />", map, infowindow);
+					var point = new google.maps.LatLng(35.673264, 139.860668);
+					var marker = create_maker(point, "info", "<img src='https://userdisk.webry.biglobe.ne.jp/002/402/18/N000/000/001/20080921.jpg' />", map, infowindow);
 
-				  var marker = new google.maps.Marker({
-				    position:now,
-				    map: map,
-				    title: contentString
-				  });
+					var point = new google.maps.LatLng(35.6545182, 139.8289645);
+					var marker = create_maker(point, "info", "<img src='http://image.space.rakuten.co.jp/lg01/31/0001148331/60/img77e670b1zikdzj.jpeg' />", map, infowindow);
 
-				  marker.addListener('click', function() {
-				    infowindow.open(map, marker);
-				  });
-				  //
-			},
+					var point = new google.maps.LatLng(35.6709150, 139.8815369);
+					var marker = create_maker(point, "info", "<img src='https://rpr.c.yimg.jp/im_siggqAZsZRWN8TnxcpyGgaloVA---x800-n1/amd/20170625-00072514-roupeiro-000-11-view.jpg' />", map, infowindow);
 
-			// [第2引数] 取得に失敗した場合の関数
-			function( error )
-			{
-				// エラーコード(error.code)の番号
-				// 0:UNKNOWN_ERROR				原因不明のエラー
-				// 1:PERMISSION_DENIED			利用者が位置情報の取得を許可しなかった
-				// 2:POSITION_UNAVAILABLE		電波状況などで位置情報が取得できなかった
-				// 3:TIMEOUT					位置情報の取得に時間がかかり過ぎた…
+				},
 
-				// エラー番号に対応したメッセージ
-				var errorInfo = [
-					"原因不明のエラーが発生しました…。" ,
-					"位置情報の取得が許可されませんでした…。" ,
-					"電波状況などで位置情報が取得できませんでした…。" ,
-					"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
-				] ;
+				// [第2引数] 取得に失敗した場合の関数
+				function( error )
+				{
+					// エラーコード(error.code)の番号
+					// 0:UNKNOWN_ERROR				原因不明のエラー
+					// 1:PERMISSION_DENIED			利用者が位置情報の取得を許可しなかった
+					// 2:POSITION_UNAVAILABLE		電波状況などで位置情報が取得できなかった
+					// 3:TIMEOUT					位置情報の取得に時間がかかり過ぎた…
 
-				// エラー番号
-				var errorNo = error.code ;
+					// エラー番号に対応したメッセージ
+					var errorInfo = [
+						"原因不明のエラーが発生しました…。" ,
+						"位置情報の取得が許可されませんでした…。" ,
+						"電波状況などで位置情報が取得できませんでした…。" ,
+						"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
+					] ;
 
-				// エラーメッセージ
-				var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+					// エラー番号
+					var errorNo = error.code ;
 
-				// アラート表示
-				alert( errorMessage ) ;
+					// エラーメッセージ
+					var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
 
-				// HTMLに書き出し
-				document.getElementById("result").innerHTML = errorMessage;
-			} ,
+					// アラート表示
+					alert( errorMessage ) ;
 
-			// [第3引数] オプション
-			// {
-			// 	"enableHighAccuracy": false,
-			// 	"timeout": 8000,
-			// 	"maximumAge": 2000,
-			// }
+					// HTMLに書き出し
+					document.getElementById("result").innerHTML = errorMessage;
+				} ,
 
-		) ;
-	}
-	// 対応していない場合
+				// [第3引数] オプション
+				// {
+				// 	"enableHighAccuracy": false,
+				// 	"timeout": 8000,
+				// 	"maximumAge": 2000,
+				// }
+
+			) ;
+		}
+		// 対応していない場合
 		else
 		{
 			// エラーメッセージ
@@ -124,8 +125,18 @@ var lng_now = 0;
 		}
 
 
+	}
+
+function create_maker(latlng, label, html, map, infowindow) {
+	// マーカーを生成
+	var marker = new google.maps.Marker({position: latlng, map: map, title: label});
+	// マーカーをマウスオーバーした時の処理
+	google.maps.event.addListener(marker, "mouseover", function() {
+		infowindow.setContent(html);
+		infowindow.open(map, marker);
+	});
 }
- </script>
- <script async defer
-   src= <%= @api_key %> >
- </script>
+</script>
+<script async defer
+		src= <%= @api_key %> >
+</script>
