@@ -1,3 +1,5 @@
+<script src="assets/Geolib-master/dist/geolib.js"></script>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Map</h1>
@@ -17,30 +19,111 @@
  
 
 <script type="text/javascript">
+
+
 function initMap() {
 
-  var test ={lat: <%= @latitude %>, lng: <%= @longitude %>};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
-    center: test
-  });
-  var transitLayer = new google.maps.TransitLayer();
-  transitLayer.setMap(map);
+var lat_now = 0;
+var lng_now = 0;
 
-  var contentString = '住所：<%= @address %>';
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
 
-  var marker = new google.maps.Marker({
-    position:test,
-    map: map,
-    title: contentString
-  });
+// 対応している場合
+	if( navigator.geolocation )
+	{
+		// 現在地を取得
+		navigator.geolocation.getCurrentPosition(
 
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
+			// [第1引数] 取得に成功した場合の関数
+			function( position )
+			{
+				// 取得したデータの整理
+				var data = position.coords ;
+
+				// データの整理
+				 lat_now = data.latitude ;
+				 lng_now = data.longitude ;
+
+
+				//map表示処理
+				  var now = {lat: lat_now , lng: lng_now};
+				  // var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
+				  var map = new google.maps.Map(document.getElementById('map'), {
+				    zoom: 15,
+				    center: now
+				  });
+				  var transitLayer = new google.maps.TransitLayer();
+				  transitLayer.setMap(map);
+
+				  var contentString = '住所：<%= @address %>';
+				  var infowindow = new google.maps.InfoWindow({
+				    content: contentString
+				  });
+
+				  var marker = new google.maps.Marker({
+				    position:now,
+				    map: map,
+				    title: contentString
+				  });
+
+				  marker.addListener('click', function() {
+				    infowindow.open(map, marker);
+				  });
+				  //
+			},
+
+			// [第2引数] 取得に失敗した場合の関数
+			function( error )
+			{
+				// エラーコード(error.code)の番号
+				// 0:UNKNOWN_ERROR				原因不明のエラー
+				// 1:PERMISSION_DENIED			利用者が位置情報の取得を許可しなかった
+				// 2:POSITION_UNAVAILABLE		電波状況などで位置情報が取得できなかった
+				// 3:TIMEOUT					位置情報の取得に時間がかかり過ぎた…
+
+				// エラー番号に対応したメッセージ
+				var errorInfo = [
+					"原因不明のエラーが発生しました…。" ,
+					"位置情報の取得が許可されませんでした…。" ,
+					"電波状況などで位置情報が取得できませんでした…。" ,
+					"位置情報の取得に時間がかかり過ぎてタイムアウトしました…。"
+				] ;
+
+				// エラー番号
+				var errorNo = error.code ;
+
+				// エラーメッセージ
+				var errorMessage = "[エラー番号: " + errorNo + "]\n" + errorInfo[ errorNo ] ;
+
+				// アラート表示
+				alert( errorMessage ) ;
+
+				// HTMLに書き出し
+				document.getElementById("result").innerHTML = errorMessage;
+			} ,
+
+			// [第3引数] オプション
+			// {
+			// 	"enableHighAccuracy": false,
+			// 	"timeout": 8000,
+			// 	"maximumAge": 2000,
+			// }
+
+		) ;
+	}
+	// 対応していない場合
+		else
+		{
+			// エラーメッセージ
+			var errorMessage = "お使いの端末は、GeoLacation APIに対応していません。" ;
+
+			// アラート表示
+			alert( errorMessage ) ;
+
+			// HTMLに書き出し
+			document.getElementById( 'result' ).innerHTML = errorMessage ;
+		}
+
+
 }
  </script>
  <script async defer
