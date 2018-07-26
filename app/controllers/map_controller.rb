@@ -7,4 +7,8 @@ class MapController < ApplicationController
 
 	@api_key = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=" + ENV['GM_API_KEY'] +"&callback=initMap"
   end
+
+	def static_page
+		@api_key = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=" + ENV['GM_API_KEY']
+	end
 end
