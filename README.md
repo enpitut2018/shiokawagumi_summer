@@ -1,24 +1,35 @@
-# README
+# みんなの夏休み
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 何ができるの？
+- とある位置or現在地周辺で納涼っぽい写真を見ることができます。
+- 地図上で見ることもでき、場所を問わず写真だけ見ることももちろんできます。
+- 写真一覧を見ると夏を感じたり涼しくなったりするかもしれません。\[^注釈]
+- 地図上で見るとそこに行きたくなるかもしれません。\[^注釈]
 
-Things you may want to cover:
+## 開発環境
+- Ruby on Rails 5.1.2 
+- Docker上で環境構築してます。
 
-* Ruby version
+## 現在できること
+- 納涼っぽい写真を一覧で見ることができます。
+    - 写真はTwitterにあげられているものです。
+    - 納涼な気分になれます。\[^注釈]
+- 位置周辺の写真を地図上で見ることができます。
+    - 自分の周りでどんな納涼なことがあるのか、食べ物があるのか分かります。
+    - イベントに出かけたり美味しそうなかき氷とか食べたくなります。\[^注釈]
+    
+## 開発プロセス
+### 7/24(火) スプリントレビュー1日目
+- タイトルページが見れるようになりました。
 
-* System dependencies
+### 7/25(水) スプリントレビュー2日目
+- Twitterに上げられた納涼なタグがついた写真を一覧で見れるようになりました。
 
-* Configuration
+### 7/26(木) スプリントレビュー3日目
+- 現在地がわかるようになりました。
+- マップ上のピンにカーソルを合わせると、写真が見れるようになりました。
 
-* Database creation
+    \[^注釈]: 個人差があります。
+    
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
