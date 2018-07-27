@@ -45,56 +45,34 @@
 					lng_now = data.longitude ;
 
 					//map表示処理
-					var now = {lat: lat_now , lng: lng_now};
-					// var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
-					var map = new google.maps.Map(document.getElementById('map'), {
-						zoom: 15,
-						center: now
-					});
-					var transitLayer = new google.maps.TransitLayer();
-					transitLayer.setMap(map);
-
-					var infowindow = new google.maps.InfoWindow();
-
-					var marker = new google.maps.Marker({
-						position:now,
-						map: map,
-						   icon: {
-						           fillColor: "#0000FF",                //塗り潰し色
-						           fillOpacity: 0.8,                    //塗り潰し透過率
-						           path: google.maps.SymbolPath.CIRCLE, //円を指定
-						           scale: 16,                           //円のサイズ
-						           strokeColor: "#0000FF",              //枠の色
-						           strokeWeight: 1.0                    //枠の透過率
-						   }
-					});
-
-					// 吹き出しを閉じる処理
-					google.maps.event.addListener(map, "click", function() {infowindow.close();});
+					// var now = {lat: lat_now , lng: lng_now};
+					// console.log(now);
 
 
-					//ダミー
-					var point = new google.maps.LatLng(36.073264, 140.100668);
-                    var marker = create_maker(point, "info", "<img src='http://blog-imgs-92.fc2.com/b/l/o/blogman55/livejupiter_1464425616_201s.jpg' />", map, infowindow);
-                    var point = new google.maps.LatLng(36.103264, 140.006668);
-                    var marker = create_maker(point, "info", "<img src='https://userdisk.webry.biglobe.ne.jp/002/402/18/N000/000/001/20080921.jpg' />", map, infowindow);
+					var geo_location = {lat: lat_now , lng: lng_now};
+					// var geocoder = new google.maps.Geocoder();
+					// geocoder.geocode(
+					// 	{
+					// 	'address': '新宿',
+					// 	'language': 'ja'
+					// 	},
+					// 	function(results, status){
+					// 		if(status==google.maps.GeocoderStatus.OK){
+					// 			/* 処理 */
+					// 			// console.log(results);
+					// 			// console.log(results[0]);
+					// 			// console.log(results[0].geometry);
+					// 			// console.log(results[0].geometry.location);
+					// 			geo_location = results[0].geometry.location;
+					// 			console.log(geo_location);
+					// 			// alert(geo_location);
 
-                    var point = new google.maps.LatLng(36.2545182, 140.1289645);
-                    var marker = create_maker(point, "info", "<img src='http://image.space.rakuten.co.jp/lg01/31/0001148331/60/img77e670b1zikdzj.jpeg' />", map, infowindow);
 
-                    var point = new google.maps.LatLng(36.129150, 140.1815369);
-                    var marker = create_maker(point, "info", "<img src='https://rpr.c.yimg.jp/im_siggqAZsZRWN8TnxcpyGgaloVA---x800-n1/amd/20170625-00072514-roupeiro-000-11-view.jpg' />", map, infowindow);
+					// 		}
+					// 	}
+					// );
 
-					// マーカー追加
-					<% @tweets.map do |tweet| %>
-						// console.log(<%#= tweet %>);
-
-						var point = new google.maps.LatLng(<%= (tweet.place.bounding_box.coordinates[0][0][1]+tweet.place.bounding_box.coordinates[0][2][1])/2 %>,<%= (tweet.place.bounding_box.coordinates[0][0][0]+tweet.place.bounding_box.coordinates[0][1][0])/2 %>);
-
-						<% if tweet.media? then %>
-						var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' />", map, infowindow);
-						<% end %>
-					<% end %>
+					create_map(geo_location);
 
 				}, 
 
@@ -151,6 +129,58 @@
 		}
 
 
+	}
+
+	function create_map(geo_location){
+		// var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 15,
+			center: geo_location
+		});
+		var transitLayer = new google.maps.TransitLayer();
+		transitLayer.setMap(map);
+
+		var infowindow = new google.maps.InfoWindow();
+
+		var marker = new google.maps.Marker({
+			position:now,
+			map: map,
+			   icon: {
+			           fillColor: "#0000FF",                //塗り潰し色
+			           fillOpacity: 0.8,                    //塗り潰し透過率
+			           path: google.maps.SymbolPath.CIRCLE, //円を指定
+			           scale: 16,                           //円のサイズ
+			           strokeColor: "#0000FF",              //枠の色
+			           strokeWeight: 1.0                    //枠の透過率
+			   }
+		});
+
+		// 吹き出しを閉じる処理
+		google.maps.event.addListener(map, "click", function() {infowindow.close();});
+
+
+		//ダミー
+		var point = new google.maps.LatLng(36.073264, 140.100668);
+        var marker = create_maker(point, "info", "<img src='http://blog-imgs-92.fc2.com/b/l/o/blogman55/livejupiter_1464425616_201s.jpg' />", map, infowindow);
+        var point = new google.maps.LatLng(36.103264, 140.006668);
+        var marker = create_maker(point, "info", "<img src='https://userdisk.webry.biglobe.ne.jp/002/402/18/N000/000/001/20080921.jpg' />", map, infowindow);
+
+        var point = new google.maps.LatLng(36.2545182, 140.1289645);
+        var marker = create_maker(point, "info", "<img src='http://image.space.rakuten.co.jp/lg01/31/0001148331/60/img77e670b1zikdzj.jpeg' />", map, infowindow);
+
+        var point = new google.maps.LatLng(36.129150, 140.1815369);
+        var marker = create_maker(point, "info", "<img src='https://rpr.c.yimg.jp/im_siggqAZsZRWN8TnxcpyGgaloVA---x800-n1/amd/20170625-00072514-roupeiro-000-11-view.jpg' />", map, infowindow);
+
+		// マーカー追加
+		<% @tweets.map do |tweet| %>
+			// console.log(<%#= tweet %>);
+
+			var point = new google.maps.LatLng(<%= (tweet.place.bounding_box.coordinates[0][0][1]+tweet.place.bounding_box.coordinates[0][2][1])/2 %>,<%= (tweet.place.bounding_box.coordinates[0][0][0]+tweet.place.bounding_box.coordinates[0][1][0])/2 %>);
+
+			<% if tweet.media? then %>
+			var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' />", map, infowindow);
+			<% end %>
+		<% end %>
 	}
 
 function create_maker(latlng, label, html, map, infowindow) {
