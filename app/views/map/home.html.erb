@@ -48,31 +48,34 @@
 					// var now = {lat: lat_now , lng: lng_now};
 					// console.log(now);
 
-
+					var now_location = {lat: lat_now , lng: lng_now};
 					var geo_location = {lat: lat_now , lng: lng_now};
-					// var geocoder = new google.maps.Geocoder();
-					// geocoder.geocode(
-					// 	{
-					// 	'address': '新宿',
-					// 	'language': 'ja'
-					// 	},
-					// 	function(results, status){
-					// 		if(status==google.maps.GeocoderStatus.OK){
-					// 			/* 処理 */
-					// 			// console.log(results);
-					// 			// console.log(results[0]);
-					// 			// console.log(results[0].geometry);
-					// 			// console.log(results[0].geometry.location);
-					// 			geo_location = results[0].geometry.location;
-					// 			console.log(geo_location);
-					// 			// alert(geo_location);
+					<%# if @placeが定義されていたら %>
+						var geocoder = new google.maps.Geocoder();
+						geocoder.geocode(
+							{
+							'address': '東京タワー',
+							'language': 'ja'
+							},
+							function(results, status){
+								if(status==google.maps.GeocoderStatus.OK){
+									/* 処理 */
+									// console.log(results);
+									// console.log(results[0]);
+									// console.log(results[0].geometry);
+									// console.log(results[0].geometry.location);
+									geo_location = results[0].geometry.location;
+									console.log(geo_location);
+									// alert(geo_location);
+									create_map(geo_location);
 
 
-					// 		}
-					// 	}
-					// );
+								}
+							}
+						);
+					<%# end %>
 
-					create_map(geo_location);
+					create_map(geo_location,now_location);
 
 				}, 
 
@@ -131,7 +134,7 @@
 
 	}
 
-	function create_map(geo_location){
+	function create_map(geo_location,now_location){
 		// var test ={lat: <%#= @latitude %>, lng: <%#= @longitude %>};
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 15,
@@ -143,7 +146,7 @@
 		var infowindow = new google.maps.InfoWindow();
 
 		var marker = new google.maps.Marker({
-			position:now,
+			position:now_location,
 			map: map,
 			   icon: {
 			           fillColor: "#0000FF",                //塗り潰し色
