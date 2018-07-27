@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-    # get  'map/home'
-    # post 'map/home'
+  get  'map/home'
+  post 'map/home'
   get  'top/index'
   post 'top/index'
   get  'map/static_page'
