@@ -2,7 +2,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Map</h1>
+<h1>#みんなの夏休み</h1>
 
 <h2>
 <center>
@@ -13,24 +13,63 @@
 <center>
 	<%= form_tag({ :controller => 'map', :action => 'home' }, { method: :post}) do %>
 		<div>
-			<input type="text" name="place">
+			<input type="text" onfocus="placeholders()" value="例:新宿 つくば 沖縄" id="placeholder"/>
 			<button>検索</button>
 		</div>
 	<%  end %>
 </center>
 
 <style type="text/css">
+h1{
+	position: relative;
+	background: #dfefff;
+	box-shadow: 0px 0px 0px 5px #dfefff;
+	border: dashed 2px white;
+	padding: 0.2em 0.5em;
+	color: #454545;
+	text-align:center;
+	margin: 10px auto;
+	width:50%;
+}
+
+h1:after{
+	position: absolute;
+	content: '';
+	left: -7px;
+	top: -7px;
+	border-width: 0 0 15px 15px;
+	border-style: solid;
+	border-color: #fff #fff #a8d4ff;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
 #map { height: 700px;
+	margin-top:auto;
 	margin-left:auto;    /* 左側マージンを自動的に空ける */
 	margin-right:auto;   /* 右側マージンを自動的に空ける */
 	text-align:left;     /* 中身を左側表示に戻す */
 	width: 80%;}
+
+#placeholder{
+    color:#666; 
+}
+
 </style>
 
 <div id="map"></div>
 
 
 <script type="text/javascript">
+
+<!--
+function placeholders(){
+    var obj = document.getElementById("placeholder");
+    if(obj.value == '例:新宿 つくば 沖縄'){
+        obj.value = "";
+        obj.style.color = '#000';
+    }
+}
+-->
 
 	function initMap() {
 
