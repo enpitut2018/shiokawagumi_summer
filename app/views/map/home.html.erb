@@ -13,7 +13,7 @@
 <center>
 	<%= form_tag({ :controller => 'map', :action => 'home' }, { method: :post}) do %>
 		<div>
-			<input type="text" onfocus="placeholders()" value="例:東京タワー つくば" id="placeholder"/>
+			<input type="text" onfocus="placeholders()" value="例:東京タワー つくば" name="place"/>
 			<button>検索</button>
 		</div>
 	<%  end %>
@@ -29,7 +29,7 @@ h1{
 	color: #454545;
 	text-align:center;
 	margin: 10px auto;
-	width:30%;
+	width:40%;
 }
 
 h1:after{
@@ -50,7 +50,7 @@ h1:after{
 	text-align:left;     /* 中身を左側表示に戻す */
 	width: 80%;}
 
-#placeholder{
+#place{
     color:#666; 
 }
 
