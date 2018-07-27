@@ -31,7 +31,6 @@ class MapController < ApplicationController
 
 		if request.post?
 			@place = params['place']
-			puts @place
 		end
 	end
 
