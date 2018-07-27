@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'map/home'
-  get 'map/static_page'
+  get  'map/home'
+  post 'map/home'
+  get  'map/static_page'
 
   root 'top#index'
 

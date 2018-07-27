@@ -9,7 +9,7 @@ class MapController < ApplicationController
 		end
 
 		# 変数
-		limit = 100       # 取得するツイートの上限数
+		limit = 10       # 取得するツイートの上限数
 		# ハッシュタグによる検索を行う際のキーワードはこれ
 		keyword = "海 OR かき氷 OR ひまわり OR 花火 OR 夏祭り OR アイス OR ペンギン filter:images filter:place_id"
 		# キーワードを含むハッシュタグの検索
@@ -29,6 +29,10 @@ class MapController < ApplicationController
 
 		@api_key = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=" + ENV['GM_API_KEY'] + "&callback=initMap"
 
+		if request.post?
+			@place = params['place']
+			puts @place
+		end
 	end
 
 	def static_page

@@ -4,9 +4,8 @@
 <h1>Map</h1>
 <center>
 <%= form_tag({ :controller => 'map', :action => 'home' }, { method: :post}) do %>
-<div><%= text_field :name_test, class: "test", maxlength: 30, placeholder: '渋谷、二条城'  %>
+	<div><%= text_field :place %></div>
 <%= submit_tag "検索" %>
-</div>
 </center>
 <br>
 <br>
