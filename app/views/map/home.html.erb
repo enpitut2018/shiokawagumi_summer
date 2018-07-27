@@ -13,7 +13,7 @@
 <center>
 	<%= form_tag({ :controller => 'map', :action => 'home' }, { method: :post}) do %>
 		<div>
-			<input type="text" onfocus="placeholders()" value="例:新宿 つくば 沖縄" id="placeholder"/>
+			<input type="text" onfocus="placeholders()" value="例:東京タワー つくば" id="placeholder"/>
 			<button>検索</button>
 		</div>
 	<%  end %>
@@ -29,7 +29,7 @@ h1{
 	color: #454545;
 	text-align:center;
 	margin: 10px auto;
-	width:50%;
+	width:30%;
 }
 
 h1:after{
@@ -44,7 +44,7 @@ h1:after{
 }
 
 #map { height: 700px;
-	margin-top:auto;
+	margin-top:50px;
 	margin-left:auto;    /* 左側マージンを自動的に空ける */
 	margin-right:auto;   /* 右側マージンを自動的に空ける */
 	text-align:left;     /* 中身を左側表示に戻す */
@@ -64,7 +64,7 @@ h1:after{
 <!--
 function placeholders(){
     var obj = document.getElementById("placeholder");
-    if(obj.value == '例:新宿 つくば 沖縄'){
+    if(obj.value == '例:東京タワー つくば'){
         obj.value = "";
         obj.style.color = '#000';
     }
