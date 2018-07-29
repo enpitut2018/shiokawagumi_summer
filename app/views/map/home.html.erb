@@ -13,7 +13,7 @@
 <center>
 	<%= form_tag({ :controller => 'map', :action => 'home' }, { method: :post}) do %>
 		<div>
-			<input type="text" onfocus="placeholders()" value="例:東京タワー つくば" name="place"/>
+			<input type="text" size=30 placeholder="場所を入力 例: 東京タワー" name="place"/>
 			<button>検索</button>
 		</div>
 	<%  end %>
@@ -60,16 +60,6 @@ h1:after{
 
 
 <script type="text/javascript">
-
-<!--
-function placeholders(){
-    var obj = document.getElementById("placeholder");
-    if(obj.value == '例:東京タワー つくば'){
-        obj.value = "";
-        obj.style.color = '#000';
-    }
-}
--->
 
 	function initMap() {
 
