@@ -9,9 +9,9 @@ class MapController < ApplicationController
 		end
 
 		# 変数
-		limit = 300       # 取得するツイートの上限数
+		limit = 100       # 取得するツイートの上限数
 		# ハッシュタグによる検索を行う際のキーワードはこれ
-		keyword = "#みんなの夏休み OR 海 OR かき氷 OR ひまわり OR 花火 OR 夏祭り OR アイス OR ペンギン filter:images filter:place_id"
+		keyword = "#みんなの夏休み filter:images filter:place_id"
 		# キーワードを含むハッシュタグの検索
 		begin
 			# limitで指定された数だけツイートを取得
