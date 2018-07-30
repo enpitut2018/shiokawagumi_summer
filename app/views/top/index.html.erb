@@ -1,6 +1,6 @@
 <% provide(:title, 'index') %>
 
-<h1>みんなの夏休み</h1>
+<h1>#みんなの夏休み</h1>
 
 <p>納涼できる写真を集めました</p>
 <h2>
@@ -21,7 +21,7 @@
 	<% @tweets.map do |tweet| %>
 		<% if tweet.media? then %>
 				<% tweet.media.each do |value| %>
-					<li><img src="<%= value.media_uri %>"/></li>
+					<li><img src="<%= value.media_uri_https %>"/></li>
 				<% end %>
 		<% end %>
 	<% end %>

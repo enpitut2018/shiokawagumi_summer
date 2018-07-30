@@ -18,28 +18,6 @@
 </center>
 
 <style type="text/css">
-h1{
-	position: relative;
-	background: #dfefff;
-	box-shadow: 0px 0px 0px 5px #dfefff;
-	border: dashed 2px white;
-	padding: 0.2em 0.5em;
-	color: #454545;
-	text-align:center;
-	margin: 10px auto;
-	width:40%;
-}
-
-h1:after{
-	position: absolute;
-	content: '';
-	left: -7px;
-	top: -7px;
-	border-width: 0 0 15px 15px;
-	border-style: solid;
-	border-color: #fff #fff #a8d4ff;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-}
 
 #map { height: 700px;
 	margin-top:50px;
@@ -215,12 +193,12 @@ h1:after{
 			<% if tweet.geo.coordinates[0].nil? != true then %>
 				var point = new google.maps.LatLng(<%= tweet.geo.coordinates[0] %>,<%= tweet.geo.coordinates[1] %>);
 				<% if tweet.media? then %>
-					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri_https %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
 				<% end %>
 			<% elsif tweet.place.bounding_box.coordinates[0][0][1].nil? != true %>
 				var point = new google.maps.LatLng(<%= (tweet.place.bounding_box.coordinates[0][0][1]+tweet.place.bounding_box.coordinates[0][2][1])/2 %>,<%= (tweet.place.bounding_box.coordinates[0][0][0]+tweet.place.bounding_box.coordinates[0][1][0])/2 %>);
 				<% if tweet.media? then %>
-					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri_https %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
 				<% end %>
 			<% end %>
 		<% end %>
@@ -229,12 +207,12 @@ h1:after{
 			<% if tweet.geo.coordinates[0].nil? != true then %>
 				var point = new google.maps.LatLng(<%= tweet.geo.coordinates[0] %>,<%= tweet.geo.coordinates[1] %>);
 				<% if tweet.media? then %>
-					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri_https %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
 				<% end %>
 			<% elsif tweet.place.bounding_box.coordinates[0][0][1].nil? != true %>
 				var point = new google.maps.LatLng(<%= (tweet.place.bounding_box.coordinates[0][0][1]+tweet.place.bounding_box.coordinates[0][2][1])/2 %>,<%= (tweet.place.bounding_box.coordinates[0][0][0]+tweet.place.bounding_box.coordinates[0][1][0])/2 %>);
 				<% if tweet.media? then %>
-					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri_https %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
 				<% end %>
 			<% end %>
 		<% end %>
