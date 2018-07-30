@@ -9,13 +9,19 @@ class MapController < ApplicationController
 		end
 
 		# 変数
-		limit = 100       # 取得するツイートの上限数
+		limit_minnano = 100       # 取得するツイートの上限数
+		limit_random = 50 
 		# ハッシュタグによる検索を行う際のキーワードはこれ
-		keyword = "#みんなの夏休み filter:images filter:place_id"
+		keyword_minnano = "#みんなの夏休み filter:images filter:place_id"
+
+		keyword_random = "海 OR かき氷 OR ひまわり OR 花火 OR 夏祭り OR アイス filter:images filter:place_id" 
 		# キーワードを含むハッシュタグの検索
 		begin
 			# limitで指定された数だけツイートを取得
-			@tweets = @client.search("#{keyword} -rt", :locale => "ja", :result_type => "recent", :include_entity => true).take(limit)
+			@tweets_minnano = @client.search("#{keyword_minnano} -rt", :locale => "ja", :result_type => "recent", :include_entity => true).take(limit_minnano)
+
+			@tweets_random = @client.search("#{keyword_random} -rt", :locale => "ja", :result_type => "recent", :include_entity => true).take(limit_random)
+
 
 			# 検索ワードでツイートを取得できなかった場合の例外処理
 		rescue Twitter::Error::ClientError
