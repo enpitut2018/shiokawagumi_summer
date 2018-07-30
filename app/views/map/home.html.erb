@@ -211,7 +211,21 @@ h1:after{
 		// var marker = create_maker(point, "info", "<img src='https://rpr.c.yimg.jp/im_siggqAZsZRWN8TnxcpyGgaloVA---x800-n1/amd/20170625-00072514-roupeiro-000-11-view.jpg' /><br><a href='twitter.com' target='_blank'>Tweet</a>", map, infowindow);
 
 		// マーカー追加
-		<% @tweets.map do |tweet| %>
+		<% @tweets_random.map do |tweet| %>
+			<% if tweet.geo.coordinates[0].nil? != true then %>
+				var point = new google.maps.LatLng(<%= tweet.geo.coordinates[0] %>,<%= tweet.geo.coordinates[1] %>);
+				<% if tweet.media? then %>
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+				<% end %>
+			<% elsif tweet.place.bounding_box.coordinates[0][0][1].nil? != true %>
+				var point = new google.maps.LatLng(<%= (tweet.place.bounding_box.coordinates[0][0][1]+tweet.place.bounding_box.coordinates[0][2][1])/2 %>,<%= (tweet.place.bounding_box.coordinates[0][0][0]+tweet.place.bounding_box.coordinates[0][1][0])/2 %>);
+				<% if tweet.media? then %>
+					var marker = create_maker(point, "info", "<img src='<%= tweet.media.first.media_uri %>' /><br><a href='https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id %>' target='_blank'>Tweet</a>", map, infowindow);
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<% @tweets_minnano.map do |tweet| %>
 			<% if tweet.geo.coordinates[0].nil? != true then %>
 				var point = new google.maps.LatLng(<%= tweet.geo.coordinates[0] %>,<%= tweet.geo.coordinates[1] %>);
 				<% if tweet.media? then %>
